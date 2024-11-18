@@ -19,7 +19,7 @@
             <h2>Search by Full Name or Alias</h2>
             <div class="form-field">
                 <label for="heroname"><in>e.g. Captain America or Steve Rogers</in></label>
-                <input type="text" id="heroname" name="heroname">
+                <input type="text" id="heroname">
             </div>
             <div class="controls">
                 <button type="button" class="btn">Search</button>
@@ -33,21 +33,21 @@
         </div>
     </div>
     <script>
-            document.querySelector("button").addEventListener("click", function() {
-                const search = document.getElementById("heroname").value.trim();
-                const httpRequest = new XMLHttpRequest();
-                const url = `http://localhost/info2180-lab4/superheroes.php?query=${encodeURIComponent(search)}`;
+        document.querySelector("button").addEventListener("click", function() {
+            const heroname = document.getElementById("heroname").value.trim();
+            console.log(heroname);
+            const httpRequest = new XMLHttpRequest();
+            const url = `http://localhost/info2180-lab4/superheroes.php?query=${encodeURIComponent(heroname)}`;
 
-                httpRequest.onreadystatechange = function() {
-                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                        if (httpRequest.status === 200) {
-                            console.log( httpRequest.responseText);
-                            document.getElementById("results").innerHTML = httpRequest.responseText;
-                        } else {
-                            document.getElementById("results").innerHTML = "<p>There was a problem with the request</p>";
-                        }
+            httpRequest.onreadystatechange = function() {
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        document.getElementById("results").innerHTML = httpRequest.responseText;
+                    } else {
+                        document.getElementById("results").innerHTML = "<p>There was a problem with the request</p>";
                     }
-                };
+                }
+            };
             httpRequest.open('GET', url, true);
             httpRequest.send();
         });

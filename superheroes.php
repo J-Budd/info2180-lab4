@@ -64,18 +64,18 @@ $superheroes = [
     ], 
 ];
 
-$search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING);
+$heroname = filter_input(INPUT_GET, 'heroname', FILTER_SANITIZE_STRING);
 
-if (!empty($search)) {
+
+if ($heroname) {
     $flag = false;
     foreach ($superheroes as $superhero) {
-        if (strcasecmp($superhero['name'], $search) === 0 || strcasecmp($superhero['alias'], $search) === 0) {
-            break;
+        if (strcasecmp($superhero['name'], $heroname) === 0 || strcasecmp($superhero['alias'], $heroname) === 0) {
             echo "<h3>{$superhero['alias']}</h3>";
             echo "<h4>A.K.A {$superhero['name']}</h4>";
             echo "<p>{$superhero['biography']}</p>";
             $flag = true;
-
+            break;
         }
     }
     if (!$flag) {
